@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.sumsub.com)",
+      "WebFetch(domain:www.notion.so)",
+      "Bash(claude tools:*)",
+      "mcp__notion__notion-fetch"
+    ]
+  }
+}
