@@ -1,0 +1,24 @@
+Documentacion
+
+https://docs.sumsub.com/
+https://docs.sumsub.com/docs/overview-development
+
+
+Documento evaluacion anterior
+https://www.notion.so/appretorna/Spike-Elliptic-PRD-1-2558f1cca57e800dba60e031731f9d8d
+
+Alcance de negocio
+https://www.notion.so/appretorna/Evaluaci-n-de-Proveedor-para-KYB-B2B-Sumsub-2e28f1cca57e8094a2f6c9ceca5d351c
+
+
+Tareas anteriores
+
+https://retorna-team.atlassian.net/browse/COR-88: https://www.notion.so/appretorna/COR-88-Evaluacion-Tecnica-Modulo-1-KYC-KYB-UBO-3048f1cca57e8045974ad9d57e74e535?source=copy_link
+
+https://retorna-team.atlassian.net/browse/COR-95: https://www.notion.so/appretorna/COR-95-Evaluacion-Tecnica-Modulo-2-AML-Screening-Risk-Monitor-Proveedor-Sumsub-3048f1cca57e8134a4eaf54581b2968d
+
+
+https://retorna-team.atlassian.net/browse/COR-96:  https://www.notion.so/appretorna/COR-96-Evaluacion-Tecnica-Modulo-3-KYT-Transaction-Monitoring-Chainalysis-Proveedor-Sumsub-3068f1cca57e81f0a67cee6bc107b5c8?source=copy_link
+
+
+tarea actual: https://retorna-team.atlassian.net/browse/COR-130

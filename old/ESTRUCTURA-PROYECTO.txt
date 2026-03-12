@@ -1,0 +1,247 @@
+POC SUMSUB INTEGRATION - ESTRUCTURA COMPLETA
+==============================================
+
+spike-sumsub/
+│
+├── 📁 poc-backend/                                    # Backend NestJS
+│   ├── 📁 src/
+│   │   ├── 📁 config/
+│   │   │   └── 📄 sumsub.config.ts                   # Configuración Sumsub
+│   │   │
+│   │   ├── 📁 sumsub/
+│   │   │   ├── 📄 sumsub.controller.ts               # REST API Controller
+│   │   │   ├── 📄 sumsub.service.ts                  # Lógica de integración
+│   │   │   ├── 📄 sumsub.types.ts                    # Tipos TypeScript
+│   │   │   └── 📄 sumsub.module.ts                   # NestJS Module
+│   │   │
+│   │   ├── 📁 webhooks/
+│   │   │   ├── 📄 webhook.controller.ts              # Webhook Controller
+│   │   │   └── 📄 webhook.module.ts                  # Webhook Module
+│   │   │
+│   │   ├── 📄 app.module.ts                          # Root Module
+│   │   └── 📄 main.ts                                # Entry Point
+│   │
+│   ├── 📄 .env.example                               # Variables de entorno
+│   ├── 📄 .gitignore
+│   ├── 📄 nest-cli.json
+│   ├── 📄 package.json
+│   ├── 📄 tsconfig.json
+│   └── 📄 README.md
+│
+├── 📁 poc-frontend/                                   # Frontend React + Vite
+│   ├── 📁 src/
+│   │   ├── 📁 components/
+│   │   │   ├── 📄 CompanyCard.tsx                    # Card de empresa
+│   │   │   └── 📄 SumsubWebSDK.tsx                   # SDK Wrapper
+│   │   │
+│   │   ├── 📁 services/
+│   │   │   └── 📄 api.service.ts                     # Cliente HTTP
+│   │   │
+│   │   ├── 📁 types/
+│   │   │   └── 📄 company.types.ts                   # Tipos TypeScript
+│   │   │
+│   │   ├── 📁 data/
+│   │   │   └── 📄 companies.ts                       # 3 empresas
+│   │   │
+│   │   ├── 📄 App.tsx                                # Main Component
+│   │   ├── 📄 main.tsx                               # Entry Point
+│   │   ├── 📄 index.css                              # Global Styles
+│   │   └── 📄 vite-env.d.ts                          # Vite Types
+│   │
+│   ├── 📄 .env                                       # Variables de entorno
+│   ├── 📄 .env.example
+│   ├── 📄 .gitignore
+│   ├── 📄 index.html
+│   ├── 📄 package.json
+│   ├── 📄 tsconfig.json
+│   ├── 📄 tsconfig.node.json
+│   ├── 📄 vite.config.ts
+│   └── 📄 README.md
+│
+├── 📄 api-examples.http                              # HTTP requests
+├── 📄 start-backend.sh                               # Script backend
+├── 📄 start-frontend.sh                              # Script frontend
+├── 📄 INSTRUCCIONES.md                               # Guía paso a paso
+├── 📄 README-POC.md                                  # Documentación principal
+├── 📄 RESUMEN-PROYECTO.md                            # Resumen del proyecto
+└── 📄 ESTRUCTURA-PROYECTO.txt                        # Este archivo
+
+==============================================
+ARCHIVOS PRINCIPALES POR FUNCIONALIDAD
+==============================================
+
+🔐 AUTENTICACIÓN Y SEGURIDAD
+- poc-backend/src/sumsub/sumsub.service.ts (líneas 26-50)
+  * Generación de firmas HMAC-SHA256
+  * Headers de autenticación Sumsub
+
+📝 GENERACIÓN DE PERMALINKS
+- poc-backend/src/sumsub/sumsub.service.ts (líneas 89-126)
+  * Endpoint: POST /resources/sdkIntegrations/levels/{level}/websdkLink
+  * TTL: 86400 segundos (24 horas)
+  * Tipo: External User ID
+
+👥 GESTIÓN DE APPLICANTS
+- poc-backend/src/sumsub/sumsub.service.ts (líneas 59-87)
+  * Crear applicants tipo "company"
+  * Vincular con External User ID
+
+🪝 WEBHOOKS
+- poc-backend/src/webhooks/webhook.controller.ts
+  * Validación de firmas
+  * Manejo de eventos: applicantCreated, applicantPending, applicantReviewed
+
+🎨 INTERFAZ DE USUARIO
+- poc-frontend/src/App.tsx
+  * Vista principal con 3 empresas
+  * Gestión de estado de links
+
+🏢 DATOS DE EMPRESAS
+- poc-frontend/src/data/companies.ts
+  * emp-co-001: Empresa Colombia 1
+  * emp-co-002: Empresa Colombia 2
+  * emp-br-001: Empresa Brasil 1
+
+==============================================
+ENDPOINTS BACKEND
+==============================================
+
+📍 API SUMSUB
+POST   /sumsub/applicants                    Crear applicant
+POST   /sumsub/permalinks                    Generar permalink
+GET    /sumsub/applicants/:externalUserId   Obtener applicant
+GET    /sumsub/levels/:country              Obtener level por país
+
+📍 WEBHOOKS
+POST   /webhooks/sumsub                     Webhook con validación
+POST   /webhooks/sumsub/test                Webhook sin validación
+
+==============================================
+VARIABLES DE ENTORNO
+==============================================
+
+🔧 BACKEND (.env)
+SUMSUB_APP_TOKEN          Token de aplicación Sumsub
+SUMSUB_SECRET_KEY         Secret key para firmas
+SUMSUB_BASE_URL           URL base de Sumsub API
+PORT                      Puerto del servidor (3001)
+LEVEL_COLOMBIA            Level KYB Colombia
+LEVEL_BRAZIL              Level KYB Brasil
+LEVEL_MEXICO              Level KYB México
+PERMALINK_TTL             TTL de permalinks (86400)
+
+🔧 FRONTEND (.env)
+VITE_API_BASE_URL         URL del backend (http://localhost:3001)
+
+==============================================
+COMANDOS DE INICIO
+==============================================
+
+🚀 BACKEND
+cd poc-backend
+npm install
+cp .env.example .env
+# Configurar credenciales en .env
+npm run start:dev
+
+🚀 FRONTEND
+cd poc-frontend
+npm install
+npm run dev
+
+==============================================
+URLS DE ACCESO
+==============================================
+
+🌐 Backend:  http://localhost:3001
+🌐 Frontend: http://localhost:5173
+
+==============================================
+FLUJO DE DATOS
+==============================================
+
+1. GENERACIÓN DE LINK
+   Usuario (Frontend)
+   → POST /sumsub/permalinks (Backend)
+   → Sumsub API (con firma HMAC)
+   → Permalink URL
+   → Usuario
+
+2. VERIFICACIÓN
+   Usuario
+   → Abre permalink
+   → Sumsub SDK
+   → Completa verificación
+   → Sumsub envía webhook
+
+3. WEBHOOK
+   Sumsub
+   → POST /webhooks/sumsub (Backend)
+   → Valida firma
+   → Procesa evento
+   → Registra en logs
+
+==============================================
+LOGS Y DEBUGGING
+==============================================
+
+📊 BACKEND (Terminal)
+- [SumsubService] Generating permalink...
+- [SumsubController] Permalink generated
+- [WebhookController] Received webhook...
+
+📊 FRONTEND (DevTools - F12)
+- Sumsub SDK Message: idCheck.onReady
+- Verification started for: emp-co-001
+- API Response: {...}
+
+==============================================
+NIVELES KYB POR PAÍS
+==============================================
+
+🇨🇴 Colombia → kyb-latam-colombia
+🇧🇷 Brasil   → kyb-latam-brazil
+🇲🇽 México   → kyb-latam-mexico
+
+==============================================
+EMPRESAS CONFIGURADAS
+==============================================
+
+🏢 emp-co-001 (Colombia)
+   Nombre: Empresa Colombia 1
+   Level:  kyb-latam-colombia
+   País:   CO
+
+🏢 emp-co-002 (Colombia)
+   Nombre: Empresa Colombia 2
+   Level:  kyb-latam-colombia
+   País:   CO
+
+🏢 emp-br-001 (Brasil)
+   Nombre: Empresa Brasil 1
+   Level:  kyb-latam-brazil
+   País:   BR
+
+==============================================
+DOCUMENTACIÓN ADICIONAL
+==============================================
+
+📖 INSTRUCCIONES.md      Guía paso a paso para ejecutar el POC
+📖 README-POC.md         Documentación completa del proyecto
+📖 RESUMEN-PROYECTO.md   Resumen detallado de archivos y funcionalidades
+📖 poc-backend/README.md Documentación específica del backend
+📖 poc-frontend/README.md Documentación específica del frontend
+📖 api-examples.http     Ejemplos de requests HTTP
+
+==============================================
+NOTAS IMPORTANTES
+==============================================
+
+⚠️  El Secret Key NUNCA debe exponerse al frontend
+✅  Las firmas HMAC-SHA256 son obligatorias para Sumsub API
+✅  Los External User IDs son permanentes y reutilizables
+✅  Los permalinks tienen TTL de 24 horas por defecto
+✅  Los webhooks deben validar firma para producción
+✅  TypeScript en strict mode para mayor seguridad
+
+==============================================

@@ -4,7 +4,16 @@
       "WebFetch(domain:docs.sumsub.com)",
       "WebFetch(domain:www.notion.so)",
       "Bash(claude tools:*)",
-      "mcp__notion__notion-fetch"
+      "mcp__notion__notion-fetch",
+      "WebSearch",
+      "Bash(chmod:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(pnpm nest generate:*)"
     ]
   }
 }
